@@ -36,11 +36,12 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { GoogleLogin } from 'react-google-login';
 import { useNavigate } from 'react-router-dom';
 
-function Copyright(props) {
+function Copyright (props) {
   return (
-    <Typography variant="body2" color="text.secondary" align="center" {...props}>
+    <Typography variant='body2' color='text.secondary'
+      align='center' {...props}>
       {'Copyright © '}
-      <Link color="inherit" href="">
+      <Link color='inherit' href=''>
         Your Website
       </Link>{' '}
       {new Date().getFullYear()}
@@ -53,9 +54,9 @@ function Copyright(props) {
 
 const defaultTheme = createTheme();
 
-const clientId = "768737600073-dnuqr72j98ibj57joe2pos47pvnjuql9.apps.googleusercontent.com";
+const clientId = '768737600073-dnuqr72j98ibj57joe2pos47pvnjuql9.apps.googleusercontent.com';
 
-function Signup() {
+function Signup () {
   const navigate = useNavigate();
 
   const handleSubmit = (event) => {
@@ -67,18 +68,18 @@ function Signup() {
     });
   };
 
-    const responseMessage = (response) => {
-        console.log(response, 'message');
-        navigate('/home');
-    };
+  const responseMessage = (response) => {
+    console.log(response, 'message');
+    navigate('/home');
+  };
 
-    const errorMessage = (error) => {
-        console.log(error, 'error');
-    };
+  const errorMessage = (error) => {
+    console.log(error, 'error');
+  };
 
   return (
     <ThemeProvider theme={defaultTheme}>
-      <Container component="main" maxWidth="xs">
+      <Container component='main' maxWidth='xs'>
         <CssBaseline />
         <Box
           sx={{
@@ -86,69 +87,71 @@ function Signup() {
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'center',
-          }}
-        >
-          <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
+          }}>
+          <Avatar sx={{ m: 1,
+            bgcolor: 'secondary.main' }}>
             <LockOutlinedIcon />
           </Avatar>
-          <Typography component="h1" variant="h5">
+          <Typography component='h1' variant='h5'>
             Sign in
           </Typography>
-          <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
+          <Box component='form' onSubmit={handleSubmit}
+            noValidate sx={{ mt: 1 }}>
             <TextField
-              margin="normal"
+              margin='normal'
               required
               fullWidth
-              id="email"
-              label="Email Address"
-              name="email"
-              autoComplete="email"
-              autoFocus
-            />
+              id='email'
+              label='Email Address'
+              name='email'
+              autoComplete='email' />
             <TextField
-              margin="normal"
+              margin='normal'
               required
               fullWidth
-              name="password"
-              label="Password"
-              type="password"
-              id="password"
-              autoComplete="current-password"
-            />
+              name='password'
+              label='Password'
+              type='password'
+              id='password'
+              autoComplete='current-password' />
             <FormControlLabel
-              control={<Checkbox value="remember" color="primary" />}
-              label="Remember me"
-            />
+              control={<Checkbox value='remember' color='primary' />}
+              label='Remember me' />
             <Button
-              type="submit"
+              type='submit'
               fullWidth
-              variant="contained"
-              sx={{ mt: 3, mb: 2 }}
-            >
+              variant='contained'
+              sx={{ mt: 3,
+                mb: 2 }}>
               Sign In
             </Button>
-            <Typography sx={{display: 'flex', justifyContent: 'center', mb:'10px'}}>OR</Typography>
-            <GoogleLogin sx={{display: 'flex', justifyContent: 'center', mb:'10px'}} 
-                  clientId={clientId}
-                  onSuccess={responseMessage} 
-                  onError={errorMessage}
-                  cookiePolicy={'single_host_origin'}
-                  isSignedIn={true} />
-            <Grid container sx={{mt: '15px'}}>
+            <Typography sx={{ display: 'flex',
+              justifyContent: 'center',
+              mb:'10px' }}>OR</Typography>
+            <GoogleLogin sx={{ display: 'flex',
+              justifyContent: 'center',
+              mb:'10px' }}
+              clientId={clientId}
+              onSuccess={responseMessage}
+              onError={errorMessage}
+              cookiePolicy={'single_host_origin'}
+              isSignedIn={true} />
+            <Grid container sx={{ mt: '15px' }}>
               <Grid item xs>
-                <Link href="#" variant="body2">
+                <Link href='#' variant='body2'>
                   Forgot password?
                 </Link>
               </Grid>
               <Grid item>
-                <Link href="" variant="body2">
-                  {"Don't have an account? Sign Up"}
+                <Link href='' variant='body2'>
+                  {'Don\'t have an account? Sign Up'}
                 </Link>
               </Grid>
             </Grid>
           </Box>
         </Box>
-        <Copyright sx={{ mt: 8, mb: 4 }} />
+        <Copyright sx={{ mt: 8,
+          mb: 4 }} />
       </Container>
     </ThemeProvider>
   );

@@ -1,12 +1,12 @@
-import React from "react";
-import HomePage from '../Components/home.jsx'
+import React from 'react';
+import HomePage from '../Components/home.jsx';
 
-function Home() {
-    return(
-        <div>
-            <HomePage/>
-        </div>
-    )
+function Home () {
+  return (
+    <div>
+      <HomePage />
+    </div>
+  );
 }
 
 export default Home;
