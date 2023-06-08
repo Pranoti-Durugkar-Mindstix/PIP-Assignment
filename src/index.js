@@ -4,6 +4,7 @@ import ReactDOM from 'react-dom/client';
 import App from './App';
 // import { GoogleOAuthProvider } from '@react-oauth/google';
 // import Comment from "./Components/comment";
+// import './styles/fonts.scss';
 
 
 // 2) Get a reference to div with ID root

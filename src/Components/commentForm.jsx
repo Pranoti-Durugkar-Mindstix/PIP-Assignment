@@ -1,14 +1,25 @@
 import React, { useState } from 'react';
 import { FormControl, TextareaAutosize, Grid, Button, Paper, Avatar } from '@mui/material';
 import Header from './header';
-import PropTypes from 'prop-types';
+import { useDispatch } from 'react-redux';
+import { addComment } from '../features/commentsSlice';
 
-function CommentForm ({ handleSubmit }) {
+function CommentForm () {
   const [text, setText] = useState('');
+  const dispatch = useDispatch();
 
   const handleClick = (e) => {
     e.preventDefault();
-    handleSubmit(text);
+    if (text.trim().length === 0) {
+      alert('Add comment before submitting');
+      setText('');
+      return;
+    }
+    dispatch(
+      addComment({
+        comment: text
+      })
+    );
     setText('');
   };
 
@@ -32,11 +43,11 @@ function CommentForm ({ handleSubmit }) {
                 display: 'flex',
                 justifyContent: 'center' }}
                 hintText='Message Field'
-                maxLength={255}
+                maxLength={50}
                 value={text}
                 placeholder='Add a comment'
                 onChange={(e) => setText(e.target.value) }
-                floatingLabelText='MultiLine and FloatingLabel'
+                // floatingLabelText='MultiLine and FloatingLabel'
                 minRows={5}
                 maxRows={7} />
             </FormControl>
@@ -53,13 +64,5 @@ function CommentForm ({ handleSubmit }) {
       </Paper></>
   );
 }
-
-CommentForm.propTypes = {
-  handleSubmit: PropTypes.func
-};
-
-CommentForm.defaultProps = {
-  handleSubmit: () => {}
-};
 
 export default CommentForm ;

@@ -1,38 +1,24 @@
-import React, { useEffect, useState } from 'react';
-import { Box } from '@mui/material';
+import React from 'react';
+import { Box, Typography } from '@mui/material';
 import Header from './header';
 import Comment from './comment';
 import CommentForm from './commentForm';
-
+import { useSelector } from 'react-redux';
 
 function Comments () {
-  const [backendComments, setBackendComments] = useState([]);
-  const [history, setHistory] = useState([]) || [];
 
-  const addComment = (input) => {
-    const hist = JSON.parse(localStorage.getItem('history')) || [];
-    console.log(hist);
-    hist.push(input);
-    localStorage.setItem('history', JSON.stringify(hist));
-    setHistory(hist);
-    setBackendComments(hist);
-  };
-
-  useEffect(() => {
-    setHistory(JSON.parse(localStorage.getItem('history')));
-    setBackendComments(history);
-    console.log(history);
-  }, []);
+  const comments = useSelector((state) => state.comments);
 
   return (
     <Box>
       <Header />
-      <CommentForm handleSubmit={addComment} />
-      <Box sx={{ mt: '100px',
+      <CommentForm />
+      <Box sx={{ mt: '50px',
         justifyContent: 'center',
         ml: '390px' } }>
-        {backendComments.map((comments) => (
-          <Comment comment={comments} key={comments.id} />
+        <Typography variant='h6' color={'#1976D2'}> Comments </Typography>
+        {comments.map((comments) => (
+          <Comment comment={comments.name} key={comments.id} />
         ))}
       </Box>
     </Box>
