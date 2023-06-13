@@ -1,5 +1,5 @@
 import React from 'react';
-import Comments from '../Components/comments';
+import Comments from '../Components/commentSection';
 
 function CommentsPage () {
   return (

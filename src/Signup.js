@@ -54,7 +54,7 @@ function Copyright (props) {
 
 const defaultTheme = createTheme();
 
-const clientId = '768737600073-dnuqr72j98ibj57joe2pos47pvnjuql9.apps.googleusercontent.com';
+const clientId = process.env.REACT_APP_GOOGLE_CLIENT_ID;
 
 function Signup () {
   const navigate = useNavigate();

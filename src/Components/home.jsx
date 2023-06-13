@@ -7,7 +7,7 @@ import Python from '../Assets/python.svg';
 import Java from '../Assets/java.svg';
 import Javascript from '../Assets/js.svg';
 import { useNavigate } from 'react-router-dom';
-import Header from './header';
+import Header from '../common/header.jsx';
 
 function Topic () {
   const navigate = useNavigate();

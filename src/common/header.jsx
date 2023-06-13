@@ -16,7 +16,8 @@ import Container from '@mui/material/Container';
 import { GoogleLogout } from 'react-google-login';
 import { useNavigate } from 'react-router-dom';
 
-const clientId='768737600073-dnuqr72j98ibj57joe2pos47pvnjuql9.apps.googleusercontent.com';
+
+const clientId = process.env.REACT_APP_GOOGLE_CLIENT_ID;
 
 function Header () {
   const navigate = useNavigate();
@@ -32,13 +33,11 @@ function Header () {
   };
 
   const onSuccess = () => {
-    console.log('logout successful');
-    localStorage.clear();
     navigate('/');
   };
 
   return (
-    <AppBar>
+    <AppBar sx={{ backgroundColor: '#645CBB' }}>
       <Container maxWidth='xl'>
         <Toolbar disableGutters variant='dense'>
           <AdbIcon sx={{ display: { xs: 'none',

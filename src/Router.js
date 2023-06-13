@@ -5,7 +5,9 @@ import CommentsPage from './pages/commentsPage';
 import { gapi } from 'gapi-script';
 import Signup from './Signup';
 
-const clientId='768737600073-dnuqr72j98ibj57joe2pos47pvnjuql9.apps.googleusercontent.com';
+
+const clientId = process.env.REACT_APP_GOOGLE_CLIENT_ID;
+
 function Router () {
 
   useEffect(() => {
