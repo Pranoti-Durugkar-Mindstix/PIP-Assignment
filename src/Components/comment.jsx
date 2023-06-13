@@ -1,33 +1,34 @@
 import React, { useState } from 'react';
-import { Avatar, Grid, Paper, Box, Button, Stack, Typography, IconButton, Modal } from '@mui/material';
+import { Avatar, Grid, Paper, Box, Button, Stack, Typography, IconButton } from '@mui/material';
 import PropTypes from 'prop-types';
 import AddSharpIcon from '@mui/icons-material/Add';
 import HorizontalRuleSharpIcon from '@mui/icons-material/HorizontalRuleSharp';
 import ReplyIcon from '@mui/icons-material/Reply';
 import { increment, decrement } from '../features/commentsSlice';
 import { useDispatch } from 'react-redux';
-import { TextareaAutosize } from '@material-ui/core';
+import CommentForm from './commentForm';
+// import { TextareaAutosize } from '@material-ui/core';
 
 
 function Comment ({ comment, counterValue, id }) {
   
-  const style = {
-    position: 'absolute',
-    top: '50%',
-    left: '50%',
-    transform: 'translate(-50%, -50%)',
-    width: 400,
-    bgcolor: 'background.paper',
-    border: '2px solid #000',
-    boxShadow: 24,
-    p: 4,
-  };
-
-  const [open, setOpen] = useState();
+  // const style = {
+  //   position: 'absolute',
+  //   top: '50%',
+  //   left: '50%',
+  //   transform: 'translate(-50%, -50%)',
+  //   width: 400,
+  //   bgcolor: 'background.paper',
+  //   border: '2px solid #000',
+  //   boxShadow: 24,
+  //   p: 4,
+  // };
+  const [isReplying, setIsReplying] = useState(false);
+  // const [open, setOpen] = useState();
   const dispatch = useDispatch();
 
-  const handleOpenModal = () => setOpen(true);
-  const handleCloseModal = () => setOpen(false);
+  // const handleOpenModal = () => setOpen(true);
+  // const handleCloseModal = () => setOpen(false);
 
   const handleClickUpvote = () => {
     dispatch(increment(id));
@@ -39,7 +40,7 @@ function Comment ({ comment, counterValue, id }) {
 
   return (
     <Box sx={{ justifyContent: 'center' }}>
-      <Modal
+      {/* <Modal
         open={open}
         onClose={handleCloseModal}
         aria-labelledby='modal-modal-title'
@@ -69,15 +70,11 @@ function Comment ({ comment, counterValue, id }) {
             sx={{ backgroundColor: '#645CBB',
               color: 'white',
               mt: '10px' }}
-            variant='contained'
-            // onClick={(e) => {
-              // handleClick(e);
-            // } }
-            >
+            variant='contained'>
             SEND
           </Button>
         </Box>
-      </Modal>
+      </Modal> */}
       <Paper elevation={2} sx={{ width: '630px',
         height: 'auto',
         display: 'flex',
@@ -123,7 +120,9 @@ function Comment ({ comment, counterValue, id }) {
                       justifyContent: 'center',
                       ml:'10px',
                       fontWeight: '700' }} variant='subtitle1'> juiliusomo</Typography></Stack>
-                  <Button startIcon={<ReplyIcon />} onClick={handleOpenModal}
+                  <Button startIcon={<ReplyIcon />}
+                    onClick={() => setIsReplying((prev) => !prev)}
+                    active={isReplying}
                     sx={{ color: '#645CBB',
                       textTransform: 'none',
                       fontWeight: '600' }}> Reply</Button>
@@ -137,6 +136,10 @@ function Comment ({ comment, counterValue, id }) {
           </Grid>
         </Grid>
       </Paper>
+      <Box sx={{ mt: '10px' }}>
+        {isReplying && <CommentForm isReplying={isReplying} setIsReplying={setIsReplying}
+          parentId={id} />}
+      </Box>
     </Box>
     
   );
