@@ -3,12 +3,12 @@ import React, { useState } from 'react';
 import { FormControl, TextareaAutosize, Grid, Button, Paper, Avatar, Box } from '@mui/material';
 import Header from '../common/header';
 import { useDispatch } from 'react-redux';
-import { addComment, addReply } from '../features/commentsSlice';
+import { addComment, addReply, editComment } from '../features/commentsSlice';
 import PropTypes from 'prop-types';
 import styles from './commentForm.style';
 // import { useAddCommentMutation } from '../services/commentsApi';
 
-function CommentForm ({ value, id, setId, isReplying, setIsReplying, parenId }) {
+function CommentForm ({ value, id, setId, isReplying, setIsReplying, parentId, setIsEditMode, isEditMode }) {
   const [text, setText] = useState('');
   // const [addComment] = useAddCommentMutation();
   const dispatch = useDispatch();
@@ -24,10 +24,18 @@ function CommentForm ({ value, id, setId, isReplying, setIsReplying, parenId }) 
       // setId(id+1);
       dispatch(addReply({
         comment: text,
-        parent_id: parenId,
+        parent_id: parentId,
         value: value,
-        id: id
+        id: setId(parentId+1)
       }));
+      
+      setIsReplying(false);
+    } else if (isEditMode) {
+      dispatch(editComment({
+        id: id,
+        comment: text
+      }));
+      setIsEditMode(false);
     } else {
       dispatch(addComment({
         comment: text,
@@ -36,21 +44,20 @@ function CommentForm ({ value, id, setId, isReplying, setIsReplying, parenId }) 
       }));
       setId(id+1);
     }
-    setIsReplying(false);
     setText('');
   };
  
   return (
-    <><Header />
+    <>{!isReplying && !isEditMode ? <Header /> : ''}
       <Box>
-        <Paper elevation={6} sx={isReplying ? styles.paperStyleReply : styles.paperStyle }>
+        <Paper elevation={6} sx={isReplying || isEditMode ? styles.paperStyleReply : styles.paperStyle }>
           <Grid container>
             <Grid xs={1}>
               <Avatar sx={{ mr: '4px' }} />
             </Grid>
             <Grid xs={10}>
               <FormControl>
-                <TextareaAutosize style={isReplying? styles.textAreaStyleReply: styles.textAreaStyle }
+                <TextareaAutosize style={isReplying || isEditMode? styles.textAreaStyleReply: styles.textAreaStyle }
                   hintText='Message Field'
                   maxLength={250}
                   value={text}
@@ -62,7 +69,7 @@ function CommentForm ({ value, id, setId, isReplying, setIsReplying, parenId }) 
               </FormControl>
             </Grid>
             <Grid xs={1}>
-              <Button active={isReplying}
+              <Button active={isReplying || isEditMode}
                 sx={{ backgroundColor: '#645CBB',
                   color: 'white' }} onClick={(e) => {
                     handleClick(e);
@@ -81,9 +88,11 @@ Comment.propTypes = {
   id: PropTypes.number,
   value: PropTypes.number,
   setId: PropTypes.func,
-  isReplying: PropTypes.boolean,
+  isReplying: PropTypes.bool,
   setIsReplying: PropTypes.func,
-  parenId: PropTypes.number
+  parentId: PropTypes.number,
+  setIsEditMode: PropTypes.func,
+  isEditMode: PropTypes.bool
 };
 
 Comment.defaultProps = {
@@ -92,7 +101,9 @@ Comment.defaultProps = {
   setId: () => {},
   isReplying: false,
   setIsReplying: () => {},
-  parenId: 0,
+  parentId: 0,
+  setEditMode: () => {},
+  isEditMode: false
 };
 
 export default CommentForm ;

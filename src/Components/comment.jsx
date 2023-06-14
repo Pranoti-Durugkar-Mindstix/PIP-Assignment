@@ -4,31 +4,20 @@ import PropTypes from 'prop-types';
 import AddSharpIcon from '@mui/icons-material/Add';
 import HorizontalRuleSharpIcon from '@mui/icons-material/HorizontalRuleSharp';
 import ReplyIcon from '@mui/icons-material/Reply';
-import { increment, decrement } from '../features/commentsSlice';
-import { useDispatch } from 'react-redux';
+import DeleteIcon from '@mui/icons-material/Delete';
+import ModeEditOutlineIcon from '@mui/icons-material/ModeEditOutline';
+import { increment, decrement, deleteComment } from '../features/commentsSlice';
+import { useDispatch, useSelector } from 'react-redux';
 import CommentForm from './commentForm';
-// import { TextareaAutosize } from '@material-ui/core';
+import styles from './comment.style.js';
 
 
-function Comment ({ comment, counterValue, id }) {
+function Comment ({ comment, counterValue, id, setId }) {
   
-  // const style = {
-  //   position: 'absolute',
-  //   top: '50%',
-  //   left: '50%',
-  //   transform: 'translate(-50%, -50%)',
-  //   width: 400,
-  //   bgcolor: 'background.paper',
-  //   border: '2px solid #000',
-  //   boxShadow: 24,
-  //   p: 4,
-  // };
   const [isReplying, setIsReplying] = useState(false);
-  // const [open, setOpen] = useState();
+  const [isEditMode, setIsEditMode] = useState(false);
   const dispatch = useDispatch();
-
-  // const handleOpenModal = () => setOpen(true);
-  // const handleCloseModal = () => setOpen(false);
+  const replyComments = useSelector((state) => state.comments.replyData);
 
   const handleClickUpvote = () => {
     dispatch(increment(id));
@@ -38,110 +27,119 @@ function Comment ({ comment, counterValue, id }) {
     dispatch(decrement(id));
   };
 
+  const handleDeleteComment = () => {
+    dispatch(deleteComment(id));
+  };
+
+  const user =false;
   return (
     <Box sx={{ justifyContent: 'center' }}>
-      {/* <Modal
-        open={open}
-        onClose={handleCloseModal}
-        aria-labelledby='modal-modal-title'
-        aria-describedby='modal-modal-description'>
-        <Box sx={style}>
-          <Typography id='modal-modal-title' variant='h6'
-            component='h2' color='#1976D2'
-            sx={{ mb: '10px',
-              color: '#645CBB' }}>
-            Add reply
-          </Typography>
-          <TextareaAutosize style={{ textAlign: 'left',
-            borderColor: 'gray',
-            width: '400px',
-            display: 'flex',
-            justifyContent: 'center',
-            mb: '10px' }}
-            hintText='Message Field'
-            maxLength={50}
-            // value={text}
-            placeholder='Add a comment'
-            // onChange={(e) => setText(e.target.value) }
-                // floatingLabelText='MultiLine and FloatingLabel'
-            minRows={5}
-            maxRows={7} />
-          <Button
-            sx={{ backgroundColor: '#645CBB',
-              color: 'white',
-              mt: '10px' }}
-            variant='contained'>
-            SEND
-          </Button>
-        </Box>
-      </Modal> */}
-      <Paper elevation={2} sx={{ width: '630px',
-        height: 'auto',
-        display: 'flex',
-        justifyContent: 'center',
-        padding: '15px',
-        mt:'20px' }}>
-        <Grid container>
-          <Grid xs={1}>
-            <Stack direction={'column'}>
-              <IconButton size='small' sx={ { backgroundColor: '#e6e6ff',
-                width: '30px',
-                borderRadius: '0' }}
-                onClick={handleClickUpvote}>
-                <AddSharpIcon sx={{ padding: '0',
-                  color: '#645CBB' }} />
-              </IconButton>
-              <Typography sx={{
-                width: '30px',
-                display: 'flex',
-                backgroundColor: '#e6e6ff',
-                alignItems: 'center',
-                justifyContent: 'center',
-                fontWeight: '550',
-                color: '#645CBB' }}>{counterValue}</Typography>
-              <IconButton size='small' sx={ { backgroundColor: '#e6e6ff',
-                width: '30px',
-                borderRadius: '0' }}
-                onClick={handleClickDownvote}>
-                <HorizontalRuleSharpIcon sx={{ padding: '0',
-                  color: '#645CBB' }} />
-              </IconButton>
-            </Stack>
-          </Grid>
-          <Grid xs={11}>
-            <Box sx={{ paddingLeft: '5px' }}>
-              <Box sx={{ mb: '10px' }}>
-                <Stack direction={'row'} display={'flex'}
-                  justifyContent={'space-between'}>
+      <Box>
+        <Paper elevation={2} sx={{
+          width: '630px',
+          height: 'auto',
+          display: 'flex',
+          justifyContent: 'center',
+          padding: '15px',
+          mt: '20px'
+        }}>
+          <Grid container>
+            <Grid xs={1}>
+              <Stack direction={'column'}>
+                <IconButton size='small' sx={{
+                  backgroundColor: '#e6e6ff',
+                  width: '30px',
+                  borderRadius: '0'
+                }}
+                  onClick={handleClickUpvote}>
+                  <AddSharpIcon sx={{
+                    padding: '0',
+                    color: '#645CBB'
+                  }} />
+                </IconButton>
+                <Typography sx={{
+                  width: '30px',
+                  display: 'flex',
+                  backgroundColor: '#e6e6ff',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  fontWeight: '550',
+                  color: '#645CBB'
+                }}>{counterValue}</Typography>
+                <IconButton size='small' sx={{
+                  backgroundColor: '#e6e6ff',
+                  width: '30px',
+                  borderRadius: '0'
+                }}
+                  onClick={handleClickDownvote}>
+                  <HorizontalRuleSharpIcon sx={{
+                    padding: '0',
+                    color: '#645CBB'
+                  }} />
+                </IconButton>
+              </Stack>
+            </Grid>
+            <Grid xs={11}>
+              <Box sx={{ paddingLeft: '5px' }}>
+                <Box sx={{ mb: '10px' }}>
                   <Stack direction={'row'} display={'flex'}
-                    justifyContent={'center'}><Avatar alt='Remy Sharp' src='../Assets/profile pic.jfif' />
-                    <Typography sx={{ alignItems: 'center',
-                      display: 'flex',
-                      justifyContent: 'center',
-                      ml:'10px',
-                      fontWeight: '700' }} variant='subtitle1'> juiliusomo</Typography></Stack>
-                  <Button startIcon={<ReplyIcon />}
-                    onClick={() => setIsReplying((prev) => !prev)}
-                    active={isReplying}
-                    sx={{ color: '#645CBB',
-                      textTransform: 'none',
-                      fontWeight: '600' }}> Reply</Button>
+                    justifyContent={'space-between'}>
+                    <Stack direction={'row'} display={'flex'}
+                      justifyContent={'center'}><Avatar alt='Remy Sharp' src='../Assets/profile pic.jfif' />
+                      <Typography sx={{
+                        alignItems: 'center',
+                        display: 'flex',
+                        justifyContent: 'center',
+                        ml: '10px',
+                        fontWeight: '700'
+                      }} variant='subtitle1'> juiliusomo</Typography></Stack>
+                    <Stack direction={'row'} display={'flex'}
+                      justifyContent={'space-between'}>
+                      {user ? <Button startIcon={<DeleteIcon />}
+                        onClick={handleDeleteComment}
+                      // active={isReplying}
+                        sx={{
+                          display: 'flex',
+                          alignItems: 'right',
+                          color: 'red',
+                          textTransform: 'none',
+                          fontWeight: '600'
+                        }}> Delete </Button> : ''}
+                      <Button startIcon={user? <ModeEditOutlineIcon /> : <ReplyIcon />}
+                        onClick={user ? () => setIsEditMode((prev) => !prev) : () => setIsReplying((prev) => !prev)}
+                        active={user ? isEditMode : isReplying}
+                        sx={{
+                          color: '#645CBB',
+                          textTransform: 'none',
+                          fontWeight: '600'
+                        }}> {user ? 'Edit' : 'Reply'}</Button>
+                    </Stack>
+                  </Stack>
+                </Box>
+                <Stack sx={{ ml: '5px' }}>
+                  <Typography sx={{
+                    color: '#808080',
+                    width: '510px'
+                  }}>{comment}</Typography>
                 </Stack>
               </Box>
-              <Stack sx={{ ml: '5px' }}>
-                <Typography sx={{ color: '#808080',
-                  width: '510px' }}>{comment}</Typography>
-              </Stack>
-            </Box>
+            </Grid>
           </Grid>
-        </Grid>
-      </Paper>
+        </Paper>
+      </Box>
       <Box sx={{ mt: '10px' }}>
         {isReplying && <CommentForm isReplying={isReplying} setIsReplying={setIsReplying}
-          parentId={id} />}
+          parentId={id} setId={setId} />}
+        {isEditMode && <CommentForm isEditMode={isEditMode} setIsEditMode={setIsEditMode}
+          id={id} />}
+      </Box>
+      <Box sx={styles.replyContainer}>
+        {replyComments.length > 0 && replyComments.filter((comment) => comment.parent_id === id ).map((comment) => (
+          <Comment comment={comment.data} key={comment.id}
+            id={comment.id} counterValue={comment.value} />
+        ))}
       </Box>
     </Box>
-    
   );
 }
 
@@ -149,11 +147,13 @@ Comment.propTypes = {
   comment: PropTypes.object,
   counterValue: PropTypes.number,
   id: PropTypes.number,
+  setId: PropTypes.func
 };
 
 Comment.defaultProps = {
   comment: {},
   counterValue: 0,
   id: 0,
+  setId: () => {}
 };
 export default Comment;

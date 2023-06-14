@@ -16,7 +16,7 @@ export default {
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
-    ml: '5%',
+    // ml: '5%',
     padding: '30px'
   },
 

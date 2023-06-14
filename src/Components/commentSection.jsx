@@ -28,7 +28,8 @@ function Comments () {
           {isLoading && <p>Loading...</p>} */}
           {comments.map((comments) => (
             <Comment comment={comments.data} key={comments.id}
-              id={comments.id} counterValue={comments.value} />
+              id={comments.id} setId={setId}
+              counterValue={comments.value} />
           ))}
         </Box>
       </Box>
