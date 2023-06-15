@@ -1,6 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
+  id: 0,
   data: [],
   replyData: [],
 };
@@ -11,11 +12,12 @@ export const commentSlice = createSlice({
   reducers: {
     addComment: (state, action) => {
       const newComment = {
-        id: action.payload.id,
+        id: state.id += 1,
         data: action.payload.comment,
         value: action.payload.value,
       };
       state.data.push( newComment);
+      addComment(newComment);
     },
     increment: (state, action) => {
       const index = state.data.findIndex(
@@ -31,7 +33,7 @@ export const commentSlice = createSlice({
     },
     addReply: (state, action) => {
       const newReply = {
-        id: action.payload.id,
+        id: state.id += 1,
         data: action.payload.comment,
         value: action.payload.value,
         parent_id: action.payload.parent_id

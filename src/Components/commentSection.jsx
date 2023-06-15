@@ -4,6 +4,7 @@ import Header from '../common/header';
 import Comment from './comment';
 import CommentForm from './commentForm';
 import { useSelector } from 'react-redux';
+import map from 'lodash/map';
 // import { decrement, increment } from '../features/commentsSlice';
 // import { useCommentsQuery } from '../services/commentsApi';
 // import isEmpty from 'lodash/isEmpty';
@@ -26,7 +27,7 @@ function Comments () {
         <Box>
           {/* {error && <p>An error occured</p>}
           {isLoading && <p>Loading...</p>} */}
-          {comments.map((comments) => (
+          {map(comments, (comments) => (
             <Comment comment={comments.data} key={comments.id}
               id={comments.id} setId={setId}
               counterValue={comments.value} />

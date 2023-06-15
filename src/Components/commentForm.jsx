@@ -1,6 +1,6 @@
 /* eslint-disable react/prop-types */
 import React, { useState } from 'react';
-import { FormControl, TextareaAutosize, Grid, Button, Paper, Avatar, Box } from '@mui/material';
+import { FormControl, TextareaAutosize, Grid, Button, Avatar, Box } from '@mui/material';
 import Header from '../common/header';
 import { useDispatch } from 'react-redux';
 import { addComment, addReply, editComment } from '../features/commentsSlice';
@@ -8,9 +8,9 @@ import PropTypes from 'prop-types';
 import styles from './commentForm.style';
 // import { useAddCommentMutation } from '../services/commentsApi';
 
-function CommentForm ({ value, id, setId, isReplying, setIsReplying, parentId, setIsEditMode, isEditMode }) {
+function CommentForm ({ value, id, setId, isReplying, setIsReplying, parentId, setIsEditMode, isEditMode, commentText }) {
   const [text, setText] = useState('');
-  // const [addComment] = useAddCommentMutation();
+  // const [addComments] = useAddCommentMutation();
   const dispatch = useDispatch();
 
   const handleClick = (e) => {
@@ -21,14 +21,13 @@ function CommentForm ({ value, id, setId, isReplying, setIsReplying, parentId, s
       return;
     }
     if (isReplying) {
-      // setId(id+1);
+      setId(parentId+1);
       dispatch(addReply({
         comment: text,
         parent_id: parentId,
         value: value,
-        id: setId(parentId+1)
+        id: parentId+1
       }));
-      
       setIsReplying(false);
     } else if (isEditMode) {
       dispatch(editComment({
@@ -42,25 +41,28 @@ function CommentForm ({ value, id, setId, isReplying, setIsReplying, parentId, s
         id: id,
         value: value
       }));
+      // addComments({ comment: text,
+      //   id: id,
+      //   value: value });
       setId(id+1);
     }
     setText('');
   };
- 
+  const user=false;
   return (
     <>{!isReplying && !isEditMode ? <Header /> : ''}
       <Box>
-        <Paper elevation={6} sx={isReplying || isEditMode ? styles.paperStyleReply : styles.paperStyle }>
+        <Box elevation={6} sx={isReplying || isEditMode ? styles.paperStyleReply : styles.paperStyle }>
           <Grid container>
-            <Grid xs={1}>
+            <Grid item xs={1}>
               <Avatar sx={{ mr: '4px' }} />
             </Grid>
             <Grid xs={10}>
               <FormControl>
-                <TextareaAutosize style={isReplying || isEditMode? styles.textAreaStyleReply: styles.textAreaStyle }
+                <TextareaAutosize style={(isReplying || isEditMode)? styles.textAreaStyleReply: styles.textAreaStyle }
                   hintText='Message Field'
                   maxLength={250}
-                  value={text}
+                  value={commentText? [...commentText] && text : text}
                   placeholder='Add a comment'
                   onChange={(e) => setText(e.target.value) }
                 // floatingLabelText='MultiLine and FloatingLabel'
@@ -69,7 +71,7 @@ function CommentForm ({ value, id, setId, isReplying, setIsReplying, parentId, s
               </FormControl>
             </Grid>
             <Grid xs={1}>
-              <Button active={isReplying || isEditMode}
+              <Button active={user? isReplying : isEditMode}
                 sx={{ backgroundColor: '#645CBB',
                   color: 'white' }} onClick={(e) => {
                     handleClick(e);
@@ -78,7 +80,7 @@ function CommentForm ({ value, id, setId, isReplying, setIsReplying, parentId, s
               </Button>
             </Grid>
           </Grid>
-        </Paper>
+        </Box>
       </Box>
     </>
   );

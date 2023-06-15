@@ -12,7 +12,7 @@ export const commentsApi = createApi({
     comments: builder.query({
       query: () => '/comments'
     }),
-    addComment: builder.mutation({
+    addComments: builder.mutation({
       query: (comment) => ({
         url: '/comments',
         method: 'POST',

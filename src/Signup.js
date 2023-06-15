@@ -70,6 +70,7 @@ function Signup () {
 
   const responseMessage = (response) => {
     console.log(response, 'message');
+    // const { imageUrl } = response.profileObj;
     navigate('/home');
   };
 

@@ -6,12 +6,8 @@
       "author": "typicode"
     }
   ],
-  "comment": [
-    {
-      "id": 1,
-      "comment": "some comment",
-      "value": 0
-    }
+  "comments": [
+
   ],
   "profile": {
     "name": "typicode"

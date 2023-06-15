@@ -4,7 +4,7 @@ import commentReducer from '../features/commentsSlice';
 
 export default configureStore({
   reducer: {
-    // [commentsApi.reducerPath]: commentsApi.reducer
+    // [commentsApi.reducerPath]: commentsApi.reducer,
     comments: commentReducer,
   },
   // middleware: (getDefaultMiddleware) =>

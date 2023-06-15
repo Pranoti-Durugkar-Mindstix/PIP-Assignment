@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Avatar, Grid, Paper, Box, Button, Stack, Typography, IconButton } from '@mui/material';
+import { Avatar, Grid, Box, Button, Stack, Typography, IconButton } from '@mui/material';
 import PropTypes from 'prop-types';
 import AddSharpIcon from '@mui/icons-material/Add';
 import HorizontalRuleSharpIcon from '@mui/icons-material/HorizontalRuleSharp';
@@ -33,18 +33,13 @@ function Comment ({ comment, counterValue, id, setId }) {
 
   const user =false;
   return (
-    <Box sx={{ justifyContent: 'center' }}>
+    <Box sx={{ justifyContent: 'center',
+      // display: 'flex',
+      alignItems: 'center' }}>
       <Box>
-        <Paper elevation={2} sx={{
-          width: '630px',
-          height: 'auto',
-          display: 'flex',
-          justifyContent: 'center',
-          padding: '15px',
-          mt: '20px'
-        }}>
+        <Box sx={styles.boxContainer}>
           <Grid container>
-            <Grid xs={1}>
+            <Grid item xs={1}>
               <Stack direction={'column'}>
                 <IconButton size='small' sx={{
                   backgroundColor: '#e6e6ff',
@@ -125,17 +120,17 @@ function Comment ({ comment, counterValue, id, setId }) {
               </Box>
             </Grid>
           </Grid>
-        </Paper>
+        </Box>
       </Box>
       <Box sx={{ mt: '10px' }}>
         {isReplying && <CommentForm isReplying={isReplying} setIsReplying={setIsReplying}
           parentId={id} setId={setId} />}
         {isEditMode && <CommentForm isEditMode={isEditMode} setIsEditMode={setIsEditMode}
-          id={id} />}
+          commentText={comment} id={id} />}
       </Box>
       <Box sx={styles.replyContainer}>
         {replyComments.length > 0 && replyComments.filter((comment) => comment.parent_id === id ).map((comment) => (
-          <Comment comment={comment.data} key={comment.id}
+          <Comment comment={comment.data} key={comment.id+1}
             id={comment.id} counterValue={comment.value} />
         ))}
       </Box>
