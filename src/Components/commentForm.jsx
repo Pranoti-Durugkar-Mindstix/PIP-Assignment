@@ -9,7 +9,7 @@ import styles from './commentForm.style';
 // import { useAddCommentMutation } from '../services/commentsApi';
 
 function CommentForm ({ value, id, setId, isReplying, setIsReplying, parentId, setIsEditMode, isEditMode, commentText }) {
-  const [text, setText] = useState('');
+  const [text, setText] = useState(commentText || '');
   // const [addComments] = useAddCommentMutation();
   const dispatch = useDispatch();
 
@@ -48,11 +48,11 @@ function CommentForm ({ value, id, setId, isReplying, setIsReplying, parentId, s
     }
     setText('');
   };
-  const user=false;
+  const user=true;
   return (
     <>{!isReplying && !isEditMode ? <Header /> : ''}
       <Box>
-        <Box elevation={6} sx={isReplying || isEditMode ? styles.paperStyleReply : styles.paperStyle }>
+        <Box elevation={6} sx={(isReplying || isEditMode) ? styles.paperStyleReply : styles.paperStyle }>
           <Grid container>
             <Grid item xs={1}>
               <Avatar sx={{ mr: '4px' }} />
@@ -62,7 +62,7 @@ function CommentForm ({ value, id, setId, isReplying, setIsReplying, parentId, s
                 <TextareaAutosize style={(isReplying || isEditMode)? styles.textAreaStyleReply: styles.textAreaStyle }
                   hintText='Message Field'
                   maxLength={250}
-                  value={commentText? [...commentText] && text : text}
+                  value={text}
                   placeholder='Add a comment'
                   onChange={(e) => setText(e.target.value) }
                 // floatingLabelText='MultiLine and FloatingLabel'

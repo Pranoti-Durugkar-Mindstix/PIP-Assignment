@@ -30,6 +30,7 @@ function Comments () {
           {map(comments, (comments) => (
             <Comment comment={comments.data} key={comments.id}
               id={comments.id} setId={setId}
+              value={value}
               counterValue={comments.value} />
           ))}
         </Box>

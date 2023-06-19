@@ -6,16 +6,20 @@ export default {
     justifyContent: 'center',
     padding: '15px',
     mt: '20px',
-    backgroundColor: 'white',
+    backgroundColor: 'lightgreen',
     boxShadow: '0px 0px 0px 1px #E7ECF0'
   },
   replyContainer: {
+    borderLeft: '1px solid',
+    backgroundColor: 'lightblue',
+    borderColor: 'black',
+    width: '400px',
     display: 'flex',
     alignItems: 'center',
     flexDirection: 'column',
     paddingLeft: '15px',
-    borderLeft: '1px solid $light-gray',
-    marginLeft: '0',
-    // gap: '15px',
+    marginLeft: '150px',
+    marginRight: '130px',
+    gap: '15px',
   }
 };

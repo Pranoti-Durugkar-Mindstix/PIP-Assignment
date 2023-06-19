@@ -10,9 +10,10 @@ import { increment, decrement, deleteComment } from '../features/commentsSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import CommentForm from './commentForm';
 import styles from './comment.style.js';
+import map from 'lodash/map';
 
 
-function Comment ({ comment, counterValue, id, setId }) {
+function Comment ({ comment, counterValue, id, setId, value }) {
   
   const [isReplying, setIsReplying] = useState(false);
   const [isEditMode, setIsEditMode] = useState(false);
@@ -122,16 +123,18 @@ function Comment ({ comment, counterValue, id, setId }) {
           </Grid>
         </Box>
       </Box>
-      <Box sx={{ mt: '10px' }}>
+      <Box >
         {isReplying && <CommentForm isReplying={isReplying} setIsReplying={setIsReplying}
-          parentId={id} setId={setId} />}
+          parentId={id} setId={setId}
+          value={value} />}
         {isEditMode && <CommentForm isEditMode={isEditMode} setIsEditMode={setIsEditMode}
           commentText={comment} id={id} />}
       </Box>
       <Box sx={styles.replyContainer}>
-        {replyComments.length > 0 && replyComments.filter((comment) => comment.parent_id === id ).map((comment) => (
+        {replyComments.length > 0 && map(replyComments.filter((comment) => comment.parent_id === id ), (comment) => (
           <Comment comment={comment.data} key={comment.id+1}
-            id={comment.id} counterValue={comment.value} />
+            id={comment.id} counterValue={comment.value}
+            value={value} />
         ))}
       </Box>
     </Box>
@@ -142,13 +145,15 @@ Comment.propTypes = {
   comment: PropTypes.object,
   counterValue: PropTypes.number,
   id: PropTypes.number,
-  setId: PropTypes.func
+  setId: PropTypes.func,
+  value: PropTypes.number,
 };
 
 Comment.defaultProps = {
   comment: {},
   counterValue: 0,
   id: 0,
-  setId: () => {}
+  setId: () => {},
+  value: 0,
 };
 export default Comment;

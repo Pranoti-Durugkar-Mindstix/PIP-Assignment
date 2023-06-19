@@ -12,14 +12,15 @@ export default {
   },
 
   paperStyleReply: {
-    width: '34%',
-    position: 'fixed',
+    width: '60%',
+    ml: '43px',
+    mr: '200px',
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
     // ml: '5%',
     padding: '30px',
-    boxShadow: '0px 0px 0px 1px #E7ECF0'
+    boxShadow: '0px 0px 0px 1px #E7ECF0',
   },
 
   textAreaStyle: {
