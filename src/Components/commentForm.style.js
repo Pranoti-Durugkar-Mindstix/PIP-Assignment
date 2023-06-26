@@ -1,7 +1,7 @@
 export default {
   paperStyle: {
     width: '600px',
-    // position: 'fixed',
+    position: 'fixed',
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',

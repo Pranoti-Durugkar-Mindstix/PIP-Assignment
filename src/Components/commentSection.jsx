@@ -13,6 +13,7 @@ function Comments () {
   const [value, setValue] = useState(0);
   // const { data, error, isLoading, isSuccess } = useCommentsQuery();
   const [id, setId] = useState(0);
+  const [time, setTime] = useState('');
   // const [currentId, setCurrentId] = useState();
   const comments = useSelector((state) => state.comments.data);
  
@@ -30,13 +31,14 @@ function Comments () {
           {map(comments, (comments) => (
             <Comment comment={comments.data} key={comments.id}
               id={comments.id} setId={setId}
-              value={value}
+              value={value} time={time}
               counterValue={comments.value} />
           ))}
         </Box>
       </Box>
       <CommentForm value={value} setValue={setValue}
-        id={id} setId={setId} />
+        id={id} setId={setId}
+        setTime={setTime} />
     </Box>
   );
 }

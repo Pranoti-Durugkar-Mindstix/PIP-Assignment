@@ -13,7 +13,7 @@ import styles from './comment.style.js';
 import map from 'lodash/map';
 
 
-function Comment ({ comment, counterValue, id, setId, value }) {
+function Comment ({ comment, counterValue, id, setId, value, time }) {
   
   const [isReplying, setIsReplying] = useState(false);
   const [isEditMode, setIsEditMode] = useState(false);
@@ -88,7 +88,13 @@ function Comment ({ comment, counterValue, id, setId, value }) {
                         justifyContent: 'center',
                         ml: '10px',
                         fontWeight: '700'
-                      }} variant='subtitle1'> juiliusomo</Typography></Stack>
+                      }} variant='subtitle1'> juiliusomo</Typography> <Typography sx={{
+                        alignItems: 'center',
+                        display: 'flex',
+                        justifyContent: 'center',
+                        ml: '10px',
+                        
+                      }}> {time}</Typography></Stack>
                     <Stack direction={'row'} display={'flex'}
                       justifyContent={'space-between'}>
                       {user ? <Button startIcon={<DeleteIcon />}
@@ -147,6 +153,7 @@ Comment.propTypes = {
   id: PropTypes.number,
   setId: PropTypes.func,
   value: PropTypes.number,
+  time: PropTypes.number
 };
 
 Comment.defaultProps = {
@@ -155,5 +162,6 @@ Comment.defaultProps = {
   id: 0,
   setId: () => {},
   value: 0,
+  time: 0
 };
 export default Comment;

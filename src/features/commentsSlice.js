@@ -15,6 +15,8 @@ export const commentSlice = createSlice({
         id: state.id += 1,
         data: action.payload.comment,
         value: action.payload.value,
+        createdAt: action.payload.createdAt,
+        // time: action.payload.time
       };
       state.data.push( newComment);
       addComment(newComment);
@@ -50,7 +52,9 @@ export const commentSlice = createSlice({
         id: state.id += 1,
         data: action.payload.comment,
         value: action.payload.value,
-        parent_id: action.payload.parent_id
+        parent_id: action.payload.parent_id,
+        createdAt: action.payload.createdAt,
+        // time: action.payload.time
       };
       state.replyData.push(newReply);
     },

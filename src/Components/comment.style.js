@@ -6,12 +6,14 @@ export default {
     justifyContent: 'center',
     padding: '15px',
     mt: '20px',
-    backgroundColor: 'lightgreen',
+    // position: 'fixed',
+    // mb: '0',
+    // backgroundColor: 'lightgreen',
     boxShadow: '0px 0px 0px 1px #E7ECF0'
   },
   replyContainer: {
-    borderLeft: '1px solid',
-    backgroundColor: 'lightblue',
+    // borderLeft: '1px solid',
+    // backgroundColor: 'lightblue',
     borderColor: 'black',
     width: '400px',
     display: 'flex',
